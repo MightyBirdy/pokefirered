@@ -79,8 +79,8 @@
 #define LINKTYPE_BATTLE_TOWER        0x2288
 #define LINKTYPE_0x3311              0x3311
 #define LINKTYPE_0x3322              0x3322
-#define LINKTYPE_0x4411              0x4411
-#define LINKTYPE_0x6601              0x6601
+#define LINKTYPE_BERRY_BLENDER_SETUP              0x4411
+#define LINKTYPE_CONTEST_GMODE              0x6601
 
 #define MASTER_HANDSHAKE 0x8FFF
 #define SLAVE_HANDSHAKE  0xB9A0
@@ -289,5 +289,7 @@ void sub_800A900(u8 a0);
 u8 sub_800A8A4(void);
 void sub_800A9A4(void);
 void SetLocalLinkPlayerId(u8 playerId);
+bool32 IsSendingKeysToLink(void);
+u32 GetLinkRecvQueueLength(void);
 
 #endif // GUARD_LINK_H

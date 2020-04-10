@@ -28,7 +28,7 @@
 #include "field_fadetransition.h"
 #include "trade.h"
 #include "constants/daycare.h"
-#include "constants/region_map.h"
+#include "constants/region_map_sections.h"
 
 // Combination of RSE's Day-Care (re-used on Four Island), FRLG's Day-Care, and egg_hatch.c
 
@@ -479,7 +479,7 @@ static void ApplyDaycareExperience(struct Pokemon *mon)
     bool8 firstMove;
     u16 learnedMove;
 
-    for (i = 0; i < MAX_MON_LEVEL; i++)
+    for (i = 0; i < MAX_LEVEL; i++)
     {
         // Add the mon's gained daycare experience level by level until it can't level up anymore.
         if (TryIncrementMonLevel(mon))
@@ -513,7 +513,7 @@ static u16 TakeSelectedPokemonFromDaycare(struct DaycareMon *daycareMon)
     species = GetBoxMonData(&daycareMon->mon, MON_DATA_SPECIES);
     BoxMonToMon(&daycareMon->mon, &pokemon);
 
-    if (GetMonData(&pokemon, MON_DATA_LEVEL) != MAX_MON_LEVEL)
+    if (GetMonData(&pokemon, MON_DATA_LEVEL) != MAX_LEVEL)
     {
         experience = GetMonData(&pokemon, MON_DATA_EXP) + daycareMon->steps;
         SetMonData(&pokemon, MON_DATA_EXP, &experience);
@@ -1766,7 +1766,7 @@ static void Task_EggHatch(u8 taskID)
     {
         CleanupOverworldWindowsAndTilemaps();
         SetMainCallback2(CB2_EggHatch_0);
-        gFieldCallback = FieldCallback_ReturnToEventScript2;
+        gFieldCallback = FieldCB_ContinueScriptHandleMusic;
         DestroyTask(taskID);
     }
 }
@@ -1967,7 +1967,7 @@ static void CB2_EggHatch_1(void)
             species = GetMonData(&gPlayerParty[sEggHatchData->eggPartyID], MON_DATA_SPECIES);
             gender = GetMonGender(&gPlayerParty[sEggHatchData->eggPartyID]);
             personality = GetMonData(&gPlayerParty[sEggHatchData->eggPartyID], MON_DATA_PERSONALITY, 0);
-            DoNamingScreen(3, gStringVar3, species, gender, personality, EggHatchSetMonNickname);
+            DoNamingScreen(NAMING_SCREEN_NAME_RATER, gStringVar3, species, gender, personality, EggHatchSetMonNickname);
             break;
         case 1:
         case -1:

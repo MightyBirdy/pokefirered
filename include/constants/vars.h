@@ -49,10 +49,15 @@
 // Counts up every step. Wraps around at 128.
 // When wraparound occurs, the friendship of
 // every party poke gets a slight boost.
-#define VAR_FRIENDSHIP_STEP_COUNT           0x4021
+#define VAR_HAPPINESS_STEP_COUNTER          0x4021
 
-// Maybe unused?
-#define VAR_0x4022                          0x4022
+// Counts up every step while a party Pokemon is
+// poisoned. Wraps around at 5. When wraparound
+// occurs, every party Pokemon with the PSN status
+// takes 1 point of damage.
+// This is a deviation from the typical rate in
+// the series, which is 1 damage every 4 steps.
+#define VAR_POISON_STEP_COUNTER             0x4022
 
 // Step counter. Caps at 1500. If you enter a map with
 // renewable hidden items and this counter is capped,
@@ -81,8 +86,8 @@
 #define VAR_QUEST_LOG_MON_COUNTS           0x4027
 #define VAR_MENEWS_JISAN_STEP_COUNTER      0x4028
 #define VAR_0x4029                         0x4029
-#define VAR_HAPPINESS_STEP_COUNTER         0x402A
-#define VAR_POISON_STEP_COUNTER            0x402B
+#define VAR_0x402A                         0x402A
+#define VAR_0x402B                         0x402B
 #define VAR_RESET_RTC_ENABLE               0x402C
 #define VAR_0x402D                         0x402D
 #define VAR_0x402E                         0x402E
@@ -216,11 +221,10 @@
 #define VAR_0x40A7                 0x40A7
 #define VAR_0x40A8                 0x40A8
 #define VAR_0x40A9                 0x40A9
-#define VAR_0x40AA                 0x40AA
-#define VAR_0x40AB                 0x40AB
-#define VAR_0x40AC                 0x40AC
-#define VAR_0x40AD                 0x40AD
-#define VAR_0x40AE                 0x40AE
+
+#define VAR_QLBAK_TRAINER_REMATCHES 0x40AA // array of 4
+#define VAR_QLBAK_MAP_LAYOUT        0x40AE
+
 #define VAR_0x40AF                 0x40AF
 #define VAR_0x40B0                 0x40B0
 #define VAR_0x40B1                 0x40B1

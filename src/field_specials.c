@@ -42,7 +42,7 @@
 #include "constants/species.h"
 #include "constants/items.h"
 #include "constants/maps.h"
-#include "constants/region_map.h"
+#include "constants/region_map_sections.h"
 #include "constants/moves.h"
 #include "constants/menu.h"
 #include "constants/event_objects.h"
@@ -95,7 +95,7 @@ static u8 *const sStringVarPtrs[] = {
 
 void ShowDiploma(void)
 {
-    sub_8112364();
+    QuestLog_OnInteractionWithSpecialNpc();
     SetMainCallback2(CB2_ShowDiploma);
     ScriptContext2_Enable();
 }
@@ -108,7 +108,7 @@ void ForcePlayerOntoBike(void)
     Overworld_ChangeMusicTo(MUS_CYCLING);
 }
 
-void nullsub_74(void)
+void ResetCyclingRoadChallengeData(void)
 {
 
 }
@@ -187,7 +187,7 @@ u8 GetLeadMonFriendship(void)
 
 void ShowTownMap(void)
 {
-    sub_8112364();
+    QuestLog_OnInteractionWithSpecialNpc();
     sub_80BFF50(1, CB2_ReturnToFieldContinueScriptPlayMapMusic);
 }
 
@@ -442,7 +442,7 @@ bool8 IsThereRoomInAnyBoxForMorePokemon(void)
     {
         for (j = 0; j < IN_BOX_COUNT; j++)
         {
-            if (GetBoxMonDataFromAnyBox(i, j, MON_DATA_SPECIES) == SPECIES_NONE)
+            if (GetBoxMonDataAt(i, j, MON_DATA_SPECIES) == SPECIES_NONE)
                 return TRUE;
         }
     }
@@ -547,11 +547,11 @@ void NullFieldSpecial(void)
 
 }
 
-void sub_80CADC4(void)
+void DoPicboxCancel(void)
 {
     u8 t = EOS;
     AddTextPrinterParameterized(0, 2, &t, 0, 1, 0, NULL);
-    sub_809D424();
+    PicboxCancel();
 }
 
 void SetVermilionTrashCans(void)
@@ -840,9 +840,9 @@ static const u8 sElevatorWindowAnimDuration[] = {
 void GetElevatorFloor(void)
 {
     u16 floor = 4;
-    if (gSaveBlock1Ptr->warp2.mapGroup == MAP_GROUP(ROCKET_HIDEOUT_B1F))
+    if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(ROCKET_HIDEOUT_B1F))
     {
-        switch (gSaveBlock1Ptr->warp2.mapNum)
+        switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
         {
         case MAP_NUM(SILPH_CO_1F):
             floor = 4;
@@ -888,9 +888,9 @@ void GetElevatorFloor(void)
             break;
         }
     }
-    if (gSaveBlock1Ptr->warp2.mapGroup == MAP_GROUP(CELADON_CITY_DEPARTMENT_STORE_1F))
+    if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(CELADON_CITY_DEPARTMENT_STORE_1F))
     {
-        switch (gSaveBlock1Ptr->warp2.mapNum)
+        switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
         {
         case MAP_NUM(CELADON_CITY_DEPARTMENT_STORE_1F):
             floor = 4;
@@ -909,9 +909,9 @@ void GetElevatorFloor(void)
             break;
         }
     }
-    if (gSaveBlock1Ptr->warp2.mapGroup == MAP_GROUP(TRAINER_TOWER_1F))
+    if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(TRAINER_TOWER_1F))
     {
-        switch (gSaveBlock1Ptr->warp2.mapNum)
+        switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
         {
         case MAP_NUM(TRAINER_TOWER_1F):
         case MAP_NUM(TRAINER_TOWER_2F):
@@ -937,9 +937,9 @@ u16 InitElevatorFloorSelectMenuPos(void)
     sElevatorScroll = 0;
     sElevatorCursorPos = 0;
 
-    if (gSaveBlock1Ptr->warp2.mapGroup == MAP_GROUP(ROCKET_HIDEOUT_B1F))
+    if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(ROCKET_HIDEOUT_B1F))
     {
-        switch (gSaveBlock1Ptr->warp2.mapNum)
+        switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
         {
         case MAP_NUM(SILPH_CO_11F):
             sElevatorScroll = 0;
@@ -999,9 +999,9 @@ u16 InitElevatorFloorSelectMenuPos(void)
             break;
         }
     }
-    if (gSaveBlock1Ptr->warp2.mapGroup == MAP_GROUP(CELADON_CITY_DEPARTMENT_STORE_1F))
+    if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(CELADON_CITY_DEPARTMENT_STORE_1F))
     {
-        switch (gSaveBlock1Ptr->warp2.mapNum)
+        switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
         {
         case MAP_NUM(CELADON_CITY_DEPARTMENT_STORE_5F):
             sElevatorScroll = 0;
@@ -1025,9 +1025,9 @@ u16 InitElevatorFloorSelectMenuPos(void)
             break;
         }
     }
-    if (gSaveBlock1Ptr->warp2.mapGroup == MAP_GROUP(TRAINER_TOWER_1F))
+    if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(TRAINER_TOWER_1F))
     {
-        switch (gSaveBlock1Ptr->warp2.mapNum)
+        switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
         {
         case MAP_NUM(TRAINER_TOWER_1F):
         case MAP_NUM(TRAINER_TOWER_2F):
@@ -1545,7 +1545,7 @@ void SetSeenMon(void)
     GetSetPokedexFlag(SpeciesToNationalPokedexNum(gSpecialVar_0x8004), 2);
 }
 
-void sub_80CBDE8(void)
+void ResetContextNpcTextColor(void)
 {
     gSelectedObjectEvent = 0;
     gSpecialVar_TextColor = 0xFF;
@@ -1637,12 +1637,12 @@ void ChangeBoxPokemonNickname(void)
     species = GetBoxMonData(pokemon, MON_DATA_SPECIES, NULL);
     gender = GetBoxMonGender(pokemon);
     personality = GetBoxMonData(pokemon, MON_DATA_PERSONALITY, NULL);
-    DoNamingScreen(3, gStringVar2, species, gender, personality, ChangeBoxPokemonNickname_CB);
+    DoNamingScreen(NAMING_SCREEN_NAME_RATER, gStringVar2, species, gender, personality, ChangeBoxPokemonNickname_CB);
 }
 
 static void ChangeBoxPokemonNickname_CB(void)
 {
-    SetBoxMonNickFromAnyBox(gSpecialVar_MonBoxId, gSpecialVar_MonBoxPos, gStringVar2);
+    SetBoxMonNickAt(gSpecialVar_MonBoxId, gSpecialVar_MonBoxPos, gStringVar2);
     CB2_ReturnToFieldContinueScriptPlayMapMusic();
 }
 
@@ -1657,7 +1657,7 @@ void ChangePokemonNickname(void)
     species = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES, NULL);
     gender = GetMonGender(&gPlayerParty[gSpecialVar_0x8004]);
     personality = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_PERSONALITY, NULL);
-    DoNamingScreen(3, gStringVar2, species, gender, personality, ChangePokemonNickname_CB);
+    DoNamingScreen(NAMING_SCREEN_NAME_RATER, gStringVar2, species, gender, personality, ChangePokemonNickname_CB);
 }
 
 static void ChangePokemonNickname_CB(void)
@@ -1980,11 +1980,11 @@ u16 GetPCBoxToSendMon(void)
 
 bool8 ShouldShowBoxWasFullMessage(void)
 {
-    if (FlagGet(FLAG_SYS_CHANGED_BOX_TO_STORE_MON))
+    if (FlagGet(FLAG_SHOWN_BOX_WAS_FULL_MESSAGE))
         return FALSE;
     if (StorageGetCurrentBox() == VarGet(VAR_PC_BOX_TO_SEND_MON))
         return FALSE;
-    FlagSet(FLAG_SYS_CHANGED_BOX_TO_STORE_MON);
+    FlagSet(FLAG_SHOWN_BOX_WAS_FULL_MESSAGE);
     return TRUE;
 }
 
@@ -2001,7 +2001,7 @@ bool8 IsDestinationBoxFull(void)
             if (GetBoxMonData(GetBoxedMonPtr(i, j), MON_DATA_SPECIES, NULL) == SPECIES_NONE)
             {
                 if (GetPCBoxToSendMon() != i)
-                    FlagClear(FLAG_SYS_CHANGED_BOX_TO_STORE_MON);
+                    FlagClear(FLAG_SHOWN_BOX_WAS_FULL_MESSAGE);
                 VarSet(VAR_PC_BOX_TO_SEND_MON, i);
                 return ShouldShowBoxWasFullMessage();
             }
@@ -2037,10 +2037,10 @@ const u16 sPokeCenter1FMaps[] = {
     MAP_UNDEFINED
 };
 
-bool8 sub_80CC87C(void)
+bool8 UsedPokemonCenterWarp(void)
 {
     s32 i;
-    u16 mapno = (gUnknown_2031DB4.mapGroup << 8) + gUnknown_2031DB4.mapNum;
+    u16 mapno = (gLastUsedWarp.mapGroup << 8) + gLastUsedWarp.mapNum;
     for (i = 0; sPokeCenter1FMaps[i] != MAP_UNDEFINED; i++)
     {
         if (sPokeCenter1FMaps[i] == mapno)
@@ -2435,7 +2435,7 @@ static void Task_WaitDeoxysFieldEffect(u8 taskId)
     }
 }
 
-void BirthIslandDeoxysStepCounter(void)
+void IncrementBirthIslandRockStepCount(void)
 {
     u16 count = VarGet(VAR_DEOXYS_INTERACTION_STEP_COUNTER);
     if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(BIRTH_ISLAND_EXTERIOR) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(BIRTH_ISLAND_EXTERIOR))

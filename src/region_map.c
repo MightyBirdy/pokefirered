@@ -19,8 +19,8 @@
 #include "map_preview_screen.h"
 #include "constants/flags.h"
 #include "constants/songs.h"
-#include "constants/region_map.h"
-#include "constants/spawn_points.h"
+#include "constants/region_map_sections.h"
+#include "constants/heal_locations.h"
 #include "constants/maps.h"
 
 #define FREE_IF_NOT_NULL(ptr) ({ \
@@ -3471,7 +3471,7 @@ static void GetPlayerPositionOnRegionMap(void)
     const struct MapHeader * mapHeader;
     struct WarpData * warp;
 
-    switch (get_map_light_level_by_bank_and_number(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum))
+    switch (GetMapTypeByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum))
     {
     default:
     case 1:
@@ -3495,12 +3495,12 @@ static void GetPlayerPositionOnRegionMap(void)
         y = gSaveBlock1Ptr->escapeWarp.y;
         break;
     case 9:
-        mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->warp2.mapGroup, gSaveBlock1Ptr->warp2.mapNum);
+        mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->dynamicWarp.mapGroup, gSaveBlock1Ptr->dynamicWarp.mapNum);
         gUnknown_20399E4->field_014 = mapHeader->regionMapSectionId;
         width = mapHeader->mapLayout->width;
         height = mapHeader->mapLayout->height;
-        x = gSaveBlock1Ptr->warp2.x;
-        y = gSaveBlock1Ptr->warp2.y;
+        x = gSaveBlock1Ptr->dynamicWarp.x;
+        y = gSaveBlock1Ptr->dynamicWarp.y;
         break;
     case 8:
         if ((gUnknown_20399E4->field_014 = gMapHeader.regionMapSectionId) != MAPSEC_SPECIAL_AREA)
@@ -3510,7 +3510,7 @@ static void GetPlayerPositionOnRegionMap(void)
         }
         else
         {
-            warp = &gSaveBlock1Ptr->warp2;
+            warp = &gSaveBlock1Ptr->dynamicWarp;
             mapHeader = Overworld_GetMapHeaderByGroupAndId(warp->mapGroup, warp->mapNum);
             gUnknown_20399E4->field_014 = mapHeader->regionMapSectionId;
         }
@@ -4318,7 +4318,7 @@ static void sub_80C4F08(u8 taskId)
         case 4:
             if ((sub_80C3AC8(0) == 2 || sub_80C3AC8(0) == 4) && GetRegionMapPermission(MAPPERM_3) == TRUE)
             {
-                switch (get_map_light_level_by_bank_and_number(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum))
+                switch (GetMapTypeByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum))
                 {
                 case 4:
                 case 8:
@@ -4388,12 +4388,12 @@ static void sub_80C527C(u16 mapsec)
     u16 idx = mapsec - MAPSECS_KANTO;
     if (sMapsecToSpawn[idx][2])
     {
-        sub_805546C(sMapsecToSpawn[idx][2]);
+        SetWarpDestinationToHealLocation(sMapsecToSpawn[idx][2]);
         SetUsedFlyQuestLogEvent(sMapsecToSpawn[idx]);
     }
     else
     {
-        warp1_set_2(sMapsecToSpawn[idx][0], sMapsecToSpawn[idx][1], -1);
+        SetWarpDestinationToMapWarp(sMapsecToSpawn[idx][0], sMapsecToSpawn[idx][1], -1);
     }
     ReturnToFieldFromFlyMapSelect();
 }

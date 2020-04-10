@@ -238,7 +238,7 @@ PalletTown_ProfessorOaksLab_ChooseStarterScene:: @ 816923E
 	waitmovement 0
 	applymovement LOCALID_RIVAL, Movement_WalkInPlaceFastestUp
 	waitmovement 0
-	clearflag FLAG_SPECIAL_FLAG_0x4001
+	clearflag FLAG_DONT_TRANSITION_MUSIC
 	savebgm SE_STOP
 	fadedefaultbgm
 	msgbox PalletTown_ProfessorOaksLab_Text_RivalFedUpWithWaiting
@@ -723,7 +723,7 @@ PalletTown_ProfessorOaksLab_EventScript_ReceiveDexScene:: @ 816961E
 	waitfanfare
 	call EventScript_RestorePrevTextColor
 	setflag FLAG_SYS_POKEDEX_GET
-	special sub_810B810
+	special SetUnlockedPokedexFlags
 	setvar VAR_MAP_SCENE_POKEMON_CENTER_TEALA, 1
 	msgbox PalletTown_ProfessorOaksLab_Text_OakCatchMonsForDataTakeThese
 	giveitem_msg PalletTown_ProfessorOaksLab_Text_ReceivedFivePokeBalls, ITEM_POKE_BALL, 5
@@ -1000,7 +1000,7 @@ PalletTown_ProfessorOaksLab_EventScript_DontStartNationalDexScene:: @ 81699F9
 
 PalletTown_ProfessorOaksLab_EventScript_CheckIfPlayerNeedsBalls:: @ 81699FB
 	goto_if_questlog EventScript_ReleaseEnd
-	special sub_8112364
+	special QuestLog_OnInteractionWithSpecialNpc
 	goto_if_set FLAG_OAK_SKIP_22_RIVAL_CHECK, PalletTown_ProfessorOaksLab_EventScript_MonsAroundWorldWait
 	goto_if_set FLAG_GOT_POKEBALLS_FROM_OAK_AFTER_22_RIVAL, PalletTown_ProfessorOaksLab_EventScript_PlayerAlreadyGotBalls
 	checkitem ITEM_POKE_BALL, 1
@@ -1274,7 +1274,7 @@ PalletTown_ProfessorOaksLab_EventScript_RivalTakesStarter:: @ 8169D2F
 	playfanfare MUS_FAN5
 	waitfanfare
 	setvar VAR_MAP_SCENE_PALLET_TOWN_PROFESSOR_OAKS_LAB, 3
-	call_if_set FLAG_PALLET_TOWN_LADY_MOVED_FROM_SIGN, PalletTown_ProfessorOaksLab_EventScript_ReadyEndSignLadyScene
+	call_if_set FLAG_OPENED_START_MENU, PalletTown_ProfessorOaksLab_EventScript_ReadyEndSignLadyScene
 	release
 	end
 

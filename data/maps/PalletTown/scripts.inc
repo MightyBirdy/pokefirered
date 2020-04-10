@@ -18,7 +18,7 @@ PalletTown_OnTransition:: @ 8165465
 	end
 
 PalletTown_EventScript_TryReadySignLady:: @ 8165488
-	goto_if_unset FLAG_PALLET_TOWN_LADY_MOVED_FROM_SIGN, EventScript_Return
+	goto_if_unset FLAG_OPENED_START_MENU, EventScript_Return
 	compare VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
 	goto_if_ge EventScript_Return
 	setvar VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
@@ -224,7 +224,7 @@ PalletTown_EventScript_OakTrigger:: @ 8165605
 	clearflag FLAG_HIDE_OAK_IN_HIS_LAB
 	setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 1
 	setflag FLAG_HIDE_OAK_IN_PALLET_TOWN
-	setflag FLAG_SPECIAL_FLAG_0x4001
+	setflag FLAG_DONT_TRANSITION_MUSIC
 	warp MAP_PALLET_TOWN_PROFESSOR_OAKS_LAB, 255, 6, 12
 	waitstate
 	releaseall
@@ -447,11 +447,11 @@ PalletTown_EventScript_SignLadyShowSign:: @ 8165894
 	closemessage
 	delay 20
 	textcolor 3
-	setflag FLAG_PALLET_TOWN_LADY_MOVED_FROM_SIGN
+	setflag FLAG_OPENED_START_MENU
 	setvar VAR_MAP_SCENE_PALLET_TOWN_SIGN_LADY, 1
 	setvar SIGN_LADY_READY, FALSE
-	special sub_80699E0
-	special sub_80699BC
+	special SetWalkingIntoSignVars
+	special DisableMsgBoxWalkaway
 	signmsg
 	msgbox PalletTown_Text_PressStartToOpenMenuCopy
 	normalmsg

@@ -4,6 +4,7 @@
 #include "global.h"
 
 void SetQuestLogObjectEventsData(struct QuestLog *);
-void sub_815A1F8(struct QuestLog *, struct ObjectEventTemplate *);
+void SetSav1ObjectEventsFromQuestLog(struct QuestLog *, struct ObjectEventTemplate *);
+void sub_815A540(void);
 
 #endif //GUARD_QUEST_LOG_OBJECTS_H

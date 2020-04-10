@@ -2143,7 +2143,7 @@ static u8 GetLevelFromMonExp(struct Pokemon *mon)
     u32 exp = GetMonData(mon, MON_DATA_EXP, NULL);
     s32 level = 1;
 
-    while (level <= MAX_MON_LEVEL && gExperienceTables[gBaseStats[species].growthRate][level] <= exp)
+    while (level <= MAX_LEVEL && gExperienceTables[gBaseStats[species].growthRate][level] <= exp)
         level++;
 
     return level - 1;
@@ -2155,7 +2155,7 @@ u8 GetLevelFromBoxMonExp(struct BoxPokemon *boxMon)
     u32 exp = GetBoxMonData(boxMon, MON_DATA_EXP, NULL);
     s32 level = 1;
 
-    while (level <= MAX_MON_LEVEL && gExperienceTables[gBaseStats[species].growthRate][level] <= exp)
+    while (level <= MAX_LEVEL && gExperienceTables[gBaseStats[species].growthRate][level] <= exp)
         level++;
 
     return level - 1;
@@ -3661,7 +3661,7 @@ static u8 SendMonToPC(struct Pokemon* mon)
                 gSpecialVar_MonBoxId = boxNo;
                 gSpecialVar_MonBoxPos = boxPos;
                 if (GetPCBoxToSendMon() != boxNo)
-                    FlagClear(FLAG_SYS_CHANGED_BOX_TO_STORE_MON);
+                    FlagClear(FLAG_SHOWN_BOX_WAS_FULL_MESSAGE);
                 VarSet(VAR_PC_BOX_TO_SEND_MON, boxNo);
                 return MON_GIVEN_TO_PC;
             }
@@ -3806,7 +3806,7 @@ static bool8 IsPokemonStorageFull(void)
 
     for (i = 0; i < 14; i++)
         for (j = 0; j < 30; j++)
-            if (GetBoxMonDataFromAnyBox(i, j, MON_DATA_SPECIES) == SPECIES_NONE)
+            if (GetBoxMonDataAt(i, j, MON_DATA_SPECIES) == SPECIES_NONE)
                 return FALSE;
 
     return TRUE;

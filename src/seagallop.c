@@ -322,7 +322,7 @@ static void Task_Seagallop_3(void)
     SetWarpDestination(warpInfo[0], warpInfo[1], -1, warpInfo[2], warpInfo[3]);
     PlayRainStoppingSoundEffect();
     PlaySE(SE_KAIDAN);
-    gFieldCallback = sub_807DF64;
+    gFieldCallback = FieldCB_DefaultWarpExit;
     WarpIntoMap();
     SetMainCallback2(CB2_LoadMap);
     ResetInitialPlayerAvatarState();

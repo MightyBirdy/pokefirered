@@ -431,7 +431,7 @@ static void Task_Hof_InitTeamSaveData(u8 taskId)
     u16 i;
     struct HallofFameTeam* lastSavedTeam = (struct HallofFameTeam *)(gDecompressionBuffer);
 
-    sub_8112450();
+    SaveQuestLogData();
     if (!gHasHallOfFameRecords)
     {
         memset(gDecompressionBuffer, 0, 0x2000);
@@ -706,7 +706,7 @@ static void Task_Hof_HandleExit(u8 taskId)
 static void SetWarpsToRollCredits(void)
 {
     VarSet(VAR_MAP_SCENE_INDIGO_PLATEAU_EXTERIOR, 1);
-    FlagSet(FLAG_SPECIAL_FLAG_0x4000);
+    FlagSet(FLAG_DONT_SHOW_MAP_NAME_POPUP);
     gDisableMapMusicChangeOnMapLoad = 2;
     SetWarpDestination(MAP_GROUP(INDIGO_PLATEAU_EXTERIOR), MAP_NUM(INDIGO_PLATEAU_EXTERIOR), -1, 11, 6);
     DoWarp();
@@ -738,7 +738,7 @@ void CB2_InitHofPC(void)
     case 3:
         if (!DrawHofBackground())
         {
-            sub_80A0A48(0, 0, 0);
+            BeginPCScreenEffect_TurnOn(0, 0, 0);
             SetVBlankCallback(VBlankCB_HofIdle);
             gMain.state++;
         }
@@ -748,7 +748,7 @@ void CB2_InitHofPC(void)
         AnimateSprites();
         BuildOamBuffer();
         UpdatePaletteFade();
-        if (!sub_80A0A98())
+        if (!IsPCScreenEffectRunning_TurnOn())
             gMain.state++;
         break;
     case 5:
@@ -946,13 +946,13 @@ static void Task_HofPC_HandlePaletteOnExit(u8 taskId)
     struct HallofFameTeam* fameTeam;
 
     CpuCopy16(gPlttBufferFaded, gPlttBufferUnfaded, 0x400);
-    sub_80A0A70(0, 0, 0);
+    BeginPCScreenEffect_TurnOff(0, 0, 0);
     gTasks[taskId].func = Task_HofPC_HandleExit;
 }
 
 static void Task_HofPC_HandleExit(u8 taskId)
 {
-    if (!sub_80A0AAC())
+    if (!IsPCScreenEffectRunning_TurnOff())
     {
         HideBg(0);
         HideBg(1);

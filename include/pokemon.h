@@ -126,7 +126,7 @@ struct PokemonStorage
 {
     /*0x0000*/ u8 currentBox;
     /*0x0001*/ struct BoxPokemon boxes[14][30];
-    /*0x8344*/ u8 boxNames[14][9];
+    /*0x8344*/ u8 boxNames[14][BOX_NAME_LENGTH + 1];
     /*0x83C2*/ u8 boxWallpapers[14];
 };
 
@@ -322,7 +322,7 @@ extern const struct Evolution gEvolutionTable[][EVOS_PER_MON];
 extern const u8 gStatStageRatios[][2];
 extern struct SpriteTemplate gMultiuseSpriteTemplate;
 extern struct PokemonStorage* gPokemonStoragePtr;
-extern const u32 gExperienceTables[][MAX_MON_LEVEL + 1];
+extern const u32 gExperienceTables[][MAX_LEVEL + 1];
 extern const u16 *const gLevelUpLearnsets[];
 extern const u8 gFacilityClassToPicIndex[];
 extern const u8 gFacilityClassToTrainerClass[];

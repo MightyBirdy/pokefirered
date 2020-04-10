@@ -41,6 +41,7 @@
 #include "constants/maps.h"
 #include "constants/moves.h"
 #include "constants/songs.h"
+#include "constants/field_weather.h"
 
 static EWRAM_DATA void (*sItemUseOnFieldCB)(u8 taskId) = NULL;
 
@@ -262,12 +263,12 @@ void FieldUseFunc_MachBike(u8 taskId)
     behavior = MapGridGetMetatileBehaviorAt(x, y);
 
     if (FlagGet(FLAG_SYS_ON_CYCLING_ROAD) == TRUE
-     || MetatileBehavior_ReturnFalse_17(behavior) == TRUE
-     || MetatileBehavior_ReturnFalse_18(behavior) == TRUE
-     || MetatileBehavior_ReturnFalse_15(behavior) == TRUE
-     || MetatileBehavior_ReturnFalse_16(behavior) == TRUE)
+     || MetatileBehavior_IsVerticalRail(behavior) == TRUE
+     || MetatileBehavior_IsHorizontalRail(behavior) == TRUE
+     || MetatileBehavior_IsIsolatedVerticalRail(behavior) == TRUE
+     || MetatileBehavior_IsIsolatedHorizontalRail(behavior) == TRUE)
         sub_80A10C4(taskId, gTasks[taskId].data[3], 2, gUnknown_8416451);
-    else if (sub_8055C9C() == TRUE && !sub_80BD540())
+    else if (Overworld_IsBikingAllowed() == TRUE && !MetatileAtPlayerPositionForbidsBiking())
     {
         sItemUseOnFieldCB = ItemUseOnFieldCB_Bicycle;
         sub_80A103C(taskId);
@@ -307,7 +308,7 @@ static bool8 ItemUseCheckFunc_Rod(void)
 
     if (MetatileBehavior_IsWaterfall(behavior))
         return FALSE;
-    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_4))
+    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_UNDERWATER))
         return FALSE;
     if (!TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING))
     {
@@ -326,7 +327,7 @@ static bool8 ItemUseCheckFunc_Rod(void)
 
 static void ItemUseOnFieldCB_Rod(u8 taskId)
 {
-    sub_805D2C0(ItemId_GetSecondaryId(gSpecialVar_ItemId));
+    StartFishing(ItemId_GetSecondaryId(gSpecialVar_ItemId));
     DestroyTask(taskId);
 }
 
@@ -456,7 +457,7 @@ void FieldUseFunc_TmCase(u8 taskId)
     else
     {
         StopPokemonLeagueLightingEffectTask();
-        FadeScreen(1, 0);
+        FadeScreen(FADE_TO_BLACK, 0);
         gTasks[taskId].func = Task_InitTMCaseFromField;
     }
 }
@@ -487,7 +488,7 @@ void FieldUseFunc_BerryPouch(u8 taskId)
     else
     {
         StopPokemonLeagueLightingEffectTask();
-        FadeScreen(1, 0);
+        FadeScreen(FADE_TO_BLACK, 0);
         gTasks[taskId].func = Task_InitBerryPouchFromField;
     }
 }
@@ -530,7 +531,7 @@ void FieldUseFunc_TeachyTv(u8 taskId)
     else
     {
         StopPokemonLeagueLightingEffectTask();
-        FadeScreen(1, 0);
+        FadeScreen(FADE_TO_BLACK, 0);
         gTasks[taskId].func = Task_InitTeachyTvFromField;
     }
 }
@@ -617,7 +618,7 @@ static void sub_80A1B48(u8 taskId)
 
 bool8 CanUseEscapeRopeOnCurrMap(void)
 {
-    if (gMapHeader.escapeRope & 1)
+    if (gMapHeader.flags & MAP_ALLOW_ESCAPE_ROPE)
         return TRUE;
     else
         return FALSE;
@@ -660,7 +661,7 @@ void FieldUseFunc_TownMap(u8 taskId)
     else
     {
         StopPokemonLeagueLightingEffectTask();
-        FadeScreen(1, 0);
+        FadeScreen(FADE_TO_BLACK, 0);
         gTasks[taskId].func = sub_80A1CC0;
     }
 }
@@ -692,7 +693,7 @@ void FieldUseFunc_FameChecker(u8 taskId)
     else
     {
         StopPokemonLeagueLightingEffectTask();
-        FadeScreen(1, 0);
+        FadeScreen(FADE_TO_BLACK, 0);
         gTasks[taskId].func = sub_80A1D68;
     }
 }

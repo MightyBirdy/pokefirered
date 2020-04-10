@@ -235,7 +235,7 @@ static void DoStandardWildBattle(void)
 {
     ScriptContext2_Enable();
     FreezeObjectEvents();
-    sub_805C780();
+    StopPlayerAvatar();
     gMain.savedCallback = CB2_EndWildBattle;
     gBattleTypeFlags = 0;
     CreateBattleStartTask(GetWildBattleTransition(), 0);
@@ -247,7 +247,7 @@ void StartRoamerBattle(void)
 {
     ScriptContext2_Enable();
     FreezeObjectEvents();
-    sub_805C780();
+    StopPlayerAvatar();
     gMain.savedCallback = CB2_EndWildBattle;
     gBattleTypeFlags = BATTLE_TYPE_ROAMER;
     CreateBattleStartTask(GetWildBattleTransition(), MUS_VS_DEN);
@@ -259,7 +259,7 @@ static void DoSafariBattle(void)
 {
     ScriptContext2_Enable();
     FreezeObjectEvents();
-    sub_805C780();
+    StopPlayerAvatar();
     gMain.savedCallback = CB2_EndSafariBattle;
     gBattleTypeFlags = BATTLE_TYPE_SAFARI;
     CreateBattleStartTask(GetWildBattleTransition(), 0);
@@ -269,7 +269,7 @@ static void DoGhostBattle(void)
 {
     ScriptContext2_Enable();
     FreezeObjectEvents();
-    sub_805C780();
+    StopPlayerAvatar();
     gMain.savedCallback = CB2_EndWildBattle;
     gBattleTypeFlags = BATTLE_TYPE_GHOST;
     CreateBattleStartTask(GetWildBattleTransition(), 0);
@@ -399,7 +399,7 @@ static void sub_807FB08(void)
 {
     ScriptContext2_Enable();
     FreezeObjectEvents();
-    sub_805C780();
+    StopPlayerAvatar();
     gMain.savedCallback = sub_807FAF8;
     SavePlayerParty();
     InitPokedudePartyAndOpponent();
@@ -461,7 +461,7 @@ u8 BattleSetup_GetTerrainId(void)
         return BATTLE_TERRAIN_GRASS;
     if (MetatileBehavior_IsLongGrass(tileBehavior))
         return BATTLE_TERRAIN_LONG_GRASS;
-    if (MetatileBehavior_IsSandOrDeepSand(tileBehavior))
+    if (MetatileBehavior_IsSandOrShallowFlowingWater(tileBehavior))
         return BATTLE_TERRAIN_SAND;
     switch (gMapHeader.mapType)
     {
@@ -974,7 +974,7 @@ const u8 *BattleSetup_GetScriptAddrAfterBattle(void)
     if (sTrainerBattleEndScript != NULL)
         return sTrainerBattleEndScript;
     else
-        return Test_EventScript_Sign;
+        return EventScript_TestSignpostMsg;
 }
 
 const u8 *BattleSetup_GetTrainerPostBattleScript(void)
@@ -982,7 +982,7 @@ const u8 *BattleSetup_GetTrainerPostBattleScript(void)
     if (sTrainerABattleScriptRetAddr != NULL)
         return sTrainerABattleScriptRetAddr;
     else
-        return Test_EventScript_Sign;
+        return EventScript_TestSignpostMsg;
 }
 
 void ShowTrainerCantBattleSpeech(void)

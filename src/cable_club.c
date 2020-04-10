@@ -402,7 +402,7 @@ static void Task_Linkup_6a(u8 taskId)
         if (gSpecialVar_Result == 1)
         {
             // Dumb trick required to match
-            if (gLinkType == LINKTYPE_0x4411)
+            if (gLinkType == LINKTYPE_BERRY_BLENDER_SETUP)
                 *UnusedVarNeededToMatch += 0;
             DestroyLinkPlayerCountDisplayWindow(gTasks[taskId].data[5]);
             EnableBothScriptContexts();
@@ -493,9 +493,9 @@ void TryRecordMixLinkup(void)
     CreateLinkupTask(2, 4);
 }
 
-void sub_8081128(void)
+void TryContestLinkup(void)
 {
-    gLinkType = LINKTYPE_0x6601;
+    gLinkType = LINKTYPE_CONTEST_GMODE;
     gBattleTypeFlags = 0;
     CreateLinkupTask(4, 4);
 }
@@ -724,7 +724,7 @@ static void sub_8081624(void)
 void CB2_ReturnFromCableClubBattle(void)
 {
     gBattleTypeFlags &= (u16)~BATTLE_TYPE_20;
-    sub_8055DB8();
+    Overworld_ResetMapMusic();
     LoadPlayerParty();
     SavePlayerBag();
     Special_UpdateTrainerFansAfterLinkBattle();
@@ -750,7 +750,7 @@ void CB2_ReturnFromCableClubBattle(void)
     }
     else
     {
-        gMain.savedCallback = c2_8056854;
+        gMain.savedCallback = CB2_ReturnToFieldFromMultiplayer;
     }
     SetMainCallback2(CB2_SetUpSaveAfterLinkBattle);
 }
@@ -762,12 +762,12 @@ void CleanupLinkRoomState(void)
         LoadPlayerParty();
         SavePlayerBag();
     }
-    copy_saved_warp2_bank_and_enter_x_to_warp1(127);
+    SetWarpDestinationToDynamicWarp(127);
 }
 
 void ExitLinkRoom(void)
 {
-    sub_8057F5C();
+    QueueExitLinkRoomKey();
 }
 
 static void Task_EnterCableClubSeat(u8 taskId)

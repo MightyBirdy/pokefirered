@@ -38,13 +38,13 @@ void InitEventData(void)
     memset(sSpecialFlags, 0, SPECIAL_FLAGS_COUNT);
 }
 
-void sub_806E110(void)
+void ClearTempFieldEventData(void)
 {
     memset(gSaveBlock1Ptr->flags, 0, 4);
     memset(gSaveBlock1Ptr->vars, 0, 16 * 2);
     FlagClear(FLAG_SYS_WHITE_FLUTE_ACTIVE);
     FlagClear(FLAG_SYS_BLACK_FLUTE_ACTIVE);
-    FlagClear(FLAG_SYS_STRENGTH_ACTIVE);
+    FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_SPECIAL_WILD_BATTLE);
     FlagClear(FLAG_SYS_INFORMED_OF_LOCAL_WIRELESS_PLAYER);
 }

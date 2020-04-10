@@ -32,78 +32,16 @@
 	.include "src/trade_scene.o"
 	.align 2
 	.include "src/new_game.o"
-
 	.align 2
-	@ .include "src/overworld.o"
-gUnknown_2031DB4: @ 2031DB4
-	.space 0x8
-
-gUnknown_2031DBC: @ 2031DBC
-	.space 0x8
-
-gUnknown_2031DC4: @ 2031DC4
-	.space 0x8
-
-gUnknown_2031DCC: @ 2031DCC
-	.space 0x8
-
-gUnknown_2031DD4: @ 2031DD4
-	.space 0x4
-
-gDisableMapMusicChangeOnMapLoad: @ 2031DD8
-	.space 0x2
-
-gUnknown_2031DDA: @ 2031DDA
-	.space 0x2
-
-gUnknown_2031DDC: @ 2031DDC
-	.space 0x4
-
-gUnknown_2031DE0: @ 2031DE0
-	.space 0x4
-
-gUnknown_2031DE4: @ 2031DE4
-	.space 0x4
-
-gUnknown_2031DE8: @ 2031DE8
-	.space 0x2
-
-gUnknown_2031DEA: @ 2031DEA
-	.space 0x2
-
-gUnknown_2031DEC: @ 2031DEC
-	.space 0x10
-
+	.include "src/overworld.o"
 	.align 2
 	.include "src/fieldmap.o"
-
 	.align 2
-	@ .include "src/field_camera.o"
-gUnknown_2036E2C: @ 2036E2C
-	.space 0x4
-
+	.include "src/field_camera.o"
 	.align 2
-	@ .include "src/field_player_avatar.o"
-gUnknown_2036E30: @ 2036E30
-	.space 0x4
-
-gUnknown_2036E34: @ 2036E34
-	.space 0x4
-
+	.include "src/field_player_avatar.o"
 	.align 2
-	@ .include "src/event_object_movement.o"
-gObjectEvents: @ 2036E38
-	.space 0x240
-
-gPlayerAvatar: @ 2037078
-	.space 0x20
-
-gUnknown_2037098: @ 2037098
-	.space 0x2
-
-gUnknown_203709A: @ 203709A
-	.space 0x2
-
+	.include "src/event_object_movement.o"
 	.align 2
 	.include "src/field_message_box.o"
 	.align 2
@@ -126,27 +64,8 @@ gUnknown_203709A: @ 203709A
 	.include "src/battle_anim_mons.o"
 	.align 2
 	.include "src/title_screen.o"
-
 	.align 2
-	@ .include "src/field_weather.o"
-gUnknown_2037F34: @ 2037F34
-	.space 0x200
-
-gUnknown_2038134: @ 2038134
-	.space 0x260
-
-gUnknown_2038394: @ 2038394
-	.space 0x2F0
-
-gUnknown_2038684: @ 2038684
-	.space 0x20
-
-gUnknown_20386A4: @ 20386A4
-	.space 0x4
-
-gUnknown_20386A8: @ 20386A8
-	.space 0x4
-
+	.include "src/field_weather.o"
 	.align 2
 	.include "src/battle_setup.o"
 	.align 2
@@ -159,66 +78,16 @@ gUnknown_20386A8: @ 20386A8
 	.include "src/option_menu.o"
 	.align 2
 	.include "src/trainer_card.o"
-
 	.align 2
-	@ .include "src/pokemon_storage_system.o"
-sPreviousBoxOption: @ 20397A8
-	.space 0x4
-
-gUnknown_20397AC: @ 20397AC
-	.space 0x4
-
-sPSSData: @ 20397B0
-	.space 0x4
-
-sInPartyMenu: @ 20397B4
-	.space 0x1
-
-sCurrentBoxOption: @ 20397B5
-	.space 0x1
-
-gUnknown_20397B6: @ 20397B6
-	.space 0x1
-
-sWhichToReshow: @ 20397B7
-	.space 0x1
-
-sLastUsedBox: @ 20397B8
-	.space 0x2
-
-gUnknown_20397BA: @ 20397BA
-	.space 0x2
-
-gUnknown_20397BC: @ 20397BC
-	.space 0x64
-
-sBoxCursorArea: @ 2039820
-	.space 0x1
-
-sBoxCursorPosition: @ 2039821
-	.space 0x1
-
-sIsMonBeingMoved: @ 2039822
-	.space 0x1
-
-sMovingMonOrigBoxId: @ 2039823
-	.space 0x1
-
-sMovingMonOrigBoxPos: @ 2039824
-	.space 0x1
-
-sCanOnlyMove: @ 2039825
-	.space 0x1
-
-gUnknown_2039826: @ 2039826
-	.space 0x2
-
-gUnknown_2039828: @ 2039828
-	.space 0x4
-
-gUnknown_203982C: @ 203982C
-	.space 0x4
-
+	.include "src/pokemon_storage_system_2.o"
+	.align 2
+	.include "src/pokemon_storage_system_3.o"
+	.align 2
+	.include "src/pokemon_storage_system_5.o"
+	.align 2
+	.include "src/pokemon_storage_system_7.o"
+	.align 2
+	.include "src/pokemon_storage_system_9.o"
 	.align 2
 	.include "src/script_movement.o"
 	.align 2
@@ -233,12 +102,8 @@ gUnknown_203982C: @ 203982C
 	.include "src/special_field_anim.o"
 	.align 2
 	.include "src/script_menu.o"
-
 	.align 2
-	@ .include "src/naming_screen.o"
-gUnknown_203998C: @ 203998C
-	.space 0x4
-
+	.include "src/naming_screen.o"
 	.align 2
 	.include "src/money.o"
 	.align 2
@@ -314,14 +179,9 @@ gUnknown_203998C: @ 203998C
 	.align 2
 	.include "src/link_rfu_3.o"
 	.align 2
-
-	@ .include "src/easy_chat_2.o"
-gUnknown_203ACE8: @ 203ACE8
-	.space 0x4
-
-gUnknown_203ACEC: @ 203ACEC
-	.space 0x4
-
+	.include "src/easy_chat_2.o"
+	.align 2
+	.include "src/easy_chat_3.o"
 	.align 2
 	.include "src/pokedex_screen.o"
 	.align 2
@@ -348,18 +208,8 @@ gUnknown_203ACEC: @ 203ACEC
 	.include "src/rfu_union_tool.o"
 	.align 2
 	.include "src/union_room_battle.o"
-
 	.align 2
-	@ .include "src/pokemon_special_anim.o"
-gUnknown_203B090: @ 203B090
-	.space 0x4
-
-gUnknown_203B094: @ 203B094
-	.space 0x4
-
-gUnknown_203B098: @ 203B098
-	.space 0x4
-
+	.include "src/pokemon_special_anim.o"
 	.align 2
 	.include "src/party_menu.o"
 	.align 2

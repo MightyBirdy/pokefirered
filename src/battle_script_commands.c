@@ -1,17 +1,10 @@
 #include "global.h"
+#include "gflib.h"
 #include "item.h"
 #include "util.h"
-#include "pokemon.h"
 #include "random.h"
-#include "text.h"
-#include "sound.h"
 #include "pokedex.h"
-#include "window.h"
-#include "main.h"
-#include "palette.h"
 #include "money.h"
-#include "bg.h"
-#include "string_util.h"
 #include "pokemon_icon.h"
 #include "mail.h"
 #include "event_data.h"
@@ -5828,7 +5821,7 @@ static void DrawLevelUpWindow1(void)
 {
     u16 currStats[NUM_STATS];
 
-    BufferMonStatsToTaskData(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
+    GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
     DrawLevelUpWindowPg1(12, gBattleResources->beforeLvlUp->stats, currStats, 0xE, 0xD, 0xF);
 }
 
@@ -5836,7 +5829,7 @@ static void DrawLevelUpWindow2(void)
 {
     u16 currStats[NUM_STATS];
 
-    BufferMonStatsToTaskData(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
+    GetMonLevelUpWindowStats(&gPlayerParty[gBattleStruct->expGetterMonId], currStats);
     DrawLevelUpWindowPg2(12, currStats, 0xE, 0xD, 0xF);
 }
 

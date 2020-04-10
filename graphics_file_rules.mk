@@ -26,6 +26,7 @@ ITEMPCGFXDIR := graphics/item_pc
 TITLESCREENGFXDIR := graphics/title_screen
 CREDITSGFXDIR := graphics/credits
 ITEMMENUGFXDIR := graphics/item_menu
+INTROGFXDIR := graphics/intro
 
 types := normal fight flying poison ground rock bug ghost steel mystery fire water grass electric psychic ice dragon dark
 contest_types := cool beauty cute smart tough
@@ -529,11 +530,17 @@ $(POKEDEXAREAMARKERSDATADIR)/marker.4bpp: $(POKEDEXAREAMARKERFILES)
 graphics/pokemon/heracross/unk_icon.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 
-graphics/object_events/151.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -mwidth 8 -mheight 4
-
-graphics/object_events/emoticons.4bpp: %.4bpp: %.png
+graphics/misc/emoticons.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 2 -mheight 2
 
 $(ITEMMENUGFXDIR)/bag_tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 55
+
+$(INTROGFXDIR)/unk_8402D54.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 397
+
+$(INTROGFXDIR)/unk_8406654.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 170
+
+$(INTROGFXDIR)/unk_8405B28.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 17

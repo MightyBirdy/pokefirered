@@ -31,6 +31,7 @@
 #define BAG_POKEBALLS_COUNT 13
 #define BAG_TMHM_COUNT      58
 #define BAG_BERRIES_COUNT   43
+#define OBJECT_EVENT_TEMPLATES_COUNT 64
 
 #define QUEST_LOG_SCENE_COUNT 4
 
@@ -77,5 +78,9 @@
 #define DIR_NORTH       2
 #define DIR_WEST        3
 #define DIR_EAST        4
+#define DIR_SOUTHWEST   5
+#define DIR_SOUTHEAST   6
+#define DIR_NORTHWEST   7
+#define DIR_NORTHEAST   8
 
 #endif //GUARD_CONSTANTS_GLOBAL_H

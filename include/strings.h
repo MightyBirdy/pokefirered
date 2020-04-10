@@ -916,7 +916,7 @@ extern const u8 gText_GiveUpTryingToTeachNewMove[];
 extern const u8 gText_DecimalPoint[];
 
 // map_name_popup
-extern const u8 gUnknown_841D18D[];
+extern const u8 gText_Rooftop2[];
 
 // option menu
 extern const u8 gText_TextSpeed[];
@@ -1037,8 +1037,8 @@ extern const u8 gText_RegionMap_AreaDesc_PatternBush[];
 extern const u8 gText_RegionMap_AreaDesc_DottedHole[];
 
 // field_screen_effect
-extern const u8 gUnknown_841B554[];
-extern const u8 gUnknown_841B5B6[];
+extern const u8 gText_PlayerScurriedToCenter[];
+extern const u8 gText_PlayerScurriedBackHome[];
 
 // save_failed_screen
 extern const u8 gText_SaveFailedScreen_CheckingBackupMemory[];
@@ -1312,5 +1312,160 @@ extern const u8 gText_QuestLog_CeruleanCave[];
 // clear_save_data_screen
 extern const u8 gUnknown_841B69E[];
 extern const u8 gUnknown_841B6B9[];
+
+// easy_chat_2
+extern const u8 gUnknown_84186D1[];
+extern const u8 gUnknown_84186EF[];
+extern const u8 gUnknown_8418706[];
+extern const u8 gUnknown_8418725[];
+extern const u8 gUnknown_8418745[];
+extern const u8 gUnknown_8418763[];
+extern const u8 gUnknown_8418780[];
+extern const u8 gUnknown_841879E[];
+extern const u8 gUnknown_84187B2[];
+extern const u8 gUnknown_84187D1[];
+extern const u8 gUnknown_84187EE[];
+extern const u8 gUnknown_841880E[];
+extern const u8 gUnknown_841881B[];
+extern const u8 gUnknown_841883E[];
+extern const u8 gUnknown_841885F[];
+extern const u8 gUnknown_8418881[];
+extern const u8 gUnknown_841888C[];
+extern const u8 gUnknown_84188AC[];
+extern const u8 gUnknown_84188B9[];
+extern const u8 gUnknown_84188D6[];
+extern const u8 gUnknown_84188F0[];
+extern const u8 gUnknown_8418902[];
+extern const u8 gUnknown_8418937[];
+extern const u8 gUnknown_8418956[];
+extern const u8 gUnknown_84189E0[];
+extern const u8 gUnknown_84189EE[];
+extern const u8 gUnknown_8418A2B[];
+extern const u8 gUnknown_8418A33[];
+extern const u8 gUnknown_8418A4A[];
+extern const u8 gUnknown_8418A61[];
+extern const u8 gUnknown_8418A77[];
+extern const u8 gUnknown_8418A87[];
+extern const u8 gUnknown_8418AA1[];
+extern const u8 gUnknown_8418AB2[];
+extern const u8 gUnknown_841EE2B[];
+
+// naming_screen
+extern const u8 gText_MoveOkBack[];
+extern const u8 gText_AlphabetUpperLower[];
+extern const u8 gText_YourName[];
+extern const u8 gText_BoxName[];
+extern const u8 gText_PkmnsNickname[];
+extern const u8 gText_RivalsName[];
+
+// pokemon_storage_system
+extern const u8 gText_WithdrawPokemon[];
+extern const u8 gText_WithdrawMonDescription[];
+extern const u8 gText_DepositPokemon[];
+extern const u8 gText_DepositMonDescription[];
+extern const u8 gText_MovePokemon[];
+extern const u8 gText_MoveMonDescription[];
+extern const u8 gText_MoveItems[];
+extern const u8 gText_MoveItemsDescription[];
+extern const u8 gText_SeeYa[];
+extern const u8 gText_SeeYaDescription[];
+extern const u8 gText_PartyFull[];
+extern const u8 gText_JustOnePkmn[];
+extern const u8 gText_Box[];
+extern const u8 gText_ExitFromBox[];
+extern const u8 gText_WhatDoYouWantToDo[];
+extern const u8 gText_PleasePickATheme[];
+extern const u8 gText_PickTheWallpaper[];
+extern const u8 gText_PkmnIsSelected[];
+extern const u8 gText_JumpToWhichBox[];
+extern const u8 gText_DepositInWhichBox[];
+extern const u8 gText_PkmnWasDeposited[];
+extern const u8 gText_BoxIsFull2[];
+extern const u8 gText_ReleaseThisPokemon[];
+extern const u8 gText_PkmnWasReleased[];
+extern const u8 gText_ByeByePkmn[];
+extern const u8 gText_MarkYourPkmn[];
+extern const u8 gText_ThatsYourLastPkmn[];
+extern const u8 gText_YourPartysFull[];
+extern const u8 gText_YoureHoldingAPkmn[];
+extern const u8 gText_WhichOneWillYouTake[];
+extern const u8 gText_YouCantReleaseAnEgg[];
+extern const u8 gText_ContinueBoxOperations[];
+extern const u8 gText_PkmnCameBack[];
+extern const u8 gText_WasItWorriedAboutYou[];
+extern const u8 gText_FourEllipsesExclamation[];
+extern const u8 gText_PleaseRemoveTheMail[];
+extern const u8 gText_PkmnIsSelected[];
+extern const u8 gText_GiveToAPkmn[];
+extern const u8 gText_PlacedItemInBag[];
+extern const u8 gText_BagIsFull2[];
+extern const u8 gText_PutItemInBag[];
+extern const u8 gText_ItemIsNowHeld[];
+extern const u8 gText_ChangedToNewItem[];
+extern const u8 gText_MailCantBeStored[];
+extern const u8 gPCText_Cancel[];
+extern const u8 gPCText_Store[];
+extern const u8 gPCText_Withdraw[];
+extern const u8 gPCText_Move[];
+extern const u8 gPCText_Shift[];
+extern const u8 gPCText_Place[];
+extern const u8 gPCText_Summary[];
+extern const u8 gPCText_Release[];
+extern const u8 gPCText_Mark[];
+extern const u8 gPCText_Jump[];
+extern const u8 gPCText_Wallpaper[];
+extern const u8 gPCText_Name[];
+extern const u8 gPCText_Take[];
+extern const u8 gPCText_Give[];
+extern const u8 gPCText_Switch[];
+extern const u8 gPCText_Bag[];
+extern const u8 gPCText_Info[];
+extern const u8 gPCText_Scenery1[];
+extern const u8 gPCText_Scenery2[];
+extern const u8 gPCText_Scenery3[];
+extern const u8 gPCText_Etcetera[];
+extern const u8 gPCText_Forest[];
+extern const u8 gPCText_City[];
+extern const u8 gPCText_Desert[];
+extern const u8 gPCText_Savanna[];
+extern const u8 gPCText_Crag[];
+extern const u8 gPCText_Volcano[];
+extern const u8 gPCText_Snow[];
+extern const u8 gPCText_Cave[];
+extern const u8 gPCText_Beach[];
+extern const u8 gPCText_Seafloor[];
+extern const u8 gPCText_River[];
+extern const u8 gPCText_Sky[];
+extern const u8 gPCText_PolkaDot[];
+extern const u8 gPCText_Pokecenter[];
+extern const u8 gPCText_Machine[];
+extern const u8 gPCText_Simple[];
+
+// pokemon_special_anim
+extern const u8 gUnknown_841B2ED[];
+extern const u8 gUnknown_841B2F1[];
+extern const u8 gUnknown_841B2FF[];
+extern const u8 gUnknown_841B285[];
+extern const u8 gUnknown_841B293[];
+extern const u8 gUnknown_841B295[];
+extern const u8 gUnknown_841B2A7[];
+extern const u8 gUnknown_841B32E[];
+extern const u8 gUnknown_841B306[];
+extern const u8 gUnknown_841B315[];
+extern const u8 gUnknown_841B31B[];
+extern const u8 gUnknown_841B329[];
+extern const u8 gUnknown_841B2A9[];
+extern const u8 gUnknown_841B2B7[];
+extern const u8 gUnknown_841B2BE[];
+extern const u8 gUnknown_841B2CC[];
+extern const u8 gUnknown_841B2D4[];
+extern const u8 gUnknown_841B2C6[];
+extern const u8 gUnknown_841B2E5[];
+extern const u8 gUnknown_841B2DC[];
+
+// field_player_avatar
+extern const u8 gText_PokemonOnHook[];
+extern const u8 gText_NotEvenANibble[];
+extern const u8 gText_ItGotAway[];
 
 #endif //GUARD_STRINGS_H

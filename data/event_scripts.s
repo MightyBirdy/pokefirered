@@ -14,7 +14,7 @@
 #include "constants/trainer_classes.h"
 #include "constants/vars.h"
 #include "constants/battle.h"
-#include "constants/spawn_points.h"
+#include "constants/heal_locations.h"
 #include "constants/field_effects.h"
 #include "constants/trainers.h"
 #include "constants/trainer_tower.h"
@@ -1161,8 +1161,8 @@ EventScript_GetElevatorFloor:: @ 81A7AB9
 
 	.include "data/scripts/aide.inc"
 
-gUnknown_81A7ADB:: @ 81A7ADB
-	special sub_80CADC4
+EventScript_CancelMessageBox:: @ 81A7ADB
+	special DoPicboxCancel
 	release
 	end
 
@@ -1223,10 +1223,10 @@ EventScript_DoInGameTrade:: @ 81A8CD9
 	faceplayer
 	return
 
-gUnknown_81A8CED:: @ 81A8CED
-	special sub_810C3A4
+EventScript_VsSeekerChargingDone:: @ 81A8CED
+	special VsSeekerFreezeObjectsAfterChargeComplete
 	waitstate
-	special sub_810C444
+	special VsSeekerResetObjectMovementAfterChargeComplete
 	releaseall
 	end
 

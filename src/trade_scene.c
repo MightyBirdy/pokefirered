@@ -39,7 +39,7 @@
 #include "constants/items.h"
 #include "constants/easy_chat.h"
 #include "constants/songs.h"
-#include "constants/region_map.h"
+#include "constants/region_map_sections.h"
 #include "constants/moves.h"
 
 #define TAG_GLOW1_TILES      5550
@@ -2747,7 +2747,7 @@ static void Task_WaitFadeAndStartInGameTradeAnim(u8 taskId)
     if (!gPaletteFade.active)
     {
         SetMainCallback2(CB2_InitTradeAnim_InGameTrade);
-        gFieldCallback = FieldCallback_ReturnToEventScript2;
+        gFieldCallback = FieldCB_ContinueScriptHandleMusic;
         DestroyTask(taskId);
     }
 }

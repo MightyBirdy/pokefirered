@@ -28,7 +28,7 @@ static bool8 sub_8059658(u8 direction, s32 x, s32 y, struct MapConnection *conne
 static bool8 sub_80596BC(s32 x, s32 src_width, s32 dest_width, s32 offset);
 
 struct BackupMapLayout VMap;
-static EWRAM_DATA u16 gBackupMapLayout[VIRTUAL_MAP_SIZE] = {};
+EWRAM_DATA u16 gBackupMapData[VIRTUAL_MAP_SIZE] = {};
 EWRAM_DATA struct MapHeader gMapHeader = {};
 EWRAM_DATA struct Camera gCamera = {};
 static EWRAM_DATA struct ConnectionFlags gMapConnectionFlags = {};
@@ -36,26 +36,26 @@ EWRAM_DATA u8 gUnknown_2036E28 = 0;
 
 static const struct ConnectionFlags sDummyConnectionFlags = {};
 
-static const u32 sMetatileAttrMasks[] = {
-    0x000001ff,
-    0x00003e00,
-    0x0003c000,
-    0x00fc0000,
-    0x07000000,
-    0x18000000,
-    0x60000000,
-    0x80000000
+static const u32 sMetatileAttrMasks[METATILE_ATTRIBUTE_COUNT] = {
+    [METATILE_ATTRIBUTE_BEHAVIOR]       = 0x000001ff,
+    [METATILE_ATTRIBUTE_TERRAIN]        = 0x00003e00,
+    [METATILE_ATTRIBUTE_2]              = 0x0003c000,
+    [METATILE_ATTRIBUTE_3]              = 0x00fc0000,
+    [METATILE_ATTRIBUTE_ENCOUNTER_TYPE] = 0x07000000,
+    [METATILE_ATTRIBUTE_5]              = 0x18000000,
+    [METATILE_ATTRIBUTE_LAYER_TYPE]     = 0x60000000,
+    [METATILE_ATTRIBUTE_7]              = 0x80000000
 };
 
-static const u8 sMetatileAttrShifts[] = {
-    0,
-    9,
-    14,
-    18,
-    24,
-    27,
-    29,
-    31
+static const u8 sMetatileAttrShifts[METATILE_ATTRIBUTE_COUNT] = {
+    [METATILE_ATTRIBUTE_BEHAVIOR]       = 0,
+    [METATILE_ATTRIBUTE_TERRAIN]        = 9,
+    [METATILE_ATTRIBUTE_2]              = 14,
+    [METATILE_ATTRIBUTE_3]              = 18,
+    [METATILE_ATTRIBUTE_ENCOUNTER_TYPE] = 24,
+    [METATILE_ATTRIBUTE_5]              = 27,
+    [METATILE_ATTRIBUTE_LAYER_TYPE]     = 29,
+    [METATILE_ATTRIBUTE_7]              = 31
 };
 
 const struct MapHeader * mapconnection_get_mapheader(struct MapConnection * connection)
@@ -79,8 +79,8 @@ void InitMapFromSavedGame(void)
 static void InitMapLayoutData(struct MapHeader * mapHeader)
 {
     const struct MapLayout * mapLayout = mapHeader->mapLayout;
-    CpuFastFill(0x03FF03FF, gBackupMapLayout, sizeof(gBackupMapLayout));
-    VMap.map = gBackupMapLayout;
+    CpuFastFill(0x03FF03FF, gBackupMapData, sizeof(gBackupMapData));
+    VMap.map = gBackupMapData;
     VMap.Xsize = mapLayout->width + 15;
     VMap.Ysize = mapLayout->height + 14;
     AGB_ASSERT_EX(VMap.Xsize * VMap.Ysize <= VIRTUAL_MAP_SIZE, ABSPATH("fieldmap.c"), 158);
@@ -365,48 +365,27 @@ union Block
     u16 value;
 };
 
-#define MapGridGetBorderTileAt(x, y) ({                        \
-    u16 block;                                                 \
-    s32 xprime;                                                \
-    s32 yprime;                                                \
-                                                               \
-    struct MapLayout *mapLayout = gMapHeader.mapLayout;              \
-                                                               \
-    xprime = x - 7;                                            \
-    xprime += 8 * mapLayout->unk18;                              \
-    xprime %= mapLayout->unk18;                                  \
-                                                               \
-    yprime = y - 7;                                            \
-    yprime += 8 * mapLayout->unk19;                              \
-    yprime %= mapLayout->unk19;                                  \
-                                                               \
-    block = mapLayout->border[xprime + yprime * mapLayout->unk18]; \
-    block |= 0xC00;                                            \
-    block;                                                     \
-})
-
-#define MapGridGetBorderTileAt2(x, y) ({                               \
-    u16 block;                                                         \
-    s32 xprime;                                                        \
-    s32 yprime;                                                        \
-                                                                       \
-    struct MapLayout *mapLayout = gMapHeader.mapLayout;                      \
-                                                                       \
-    xprime = x - 7;                                                    \
-    xprime += 8 * mapLayout->unk18;                                      \
-    xprime %= mapLayout->unk18;                                          \
-                                                                       \
-    yprime = y - 7;                                                    \
-    yprime += 8 * mapLayout->unk19;                                      \
-    yprime %= mapLayout->unk19;                                          \
-                                                                       \
-    block = mapLayout->border[xprime + yprime * mapLayout->unk18] | 0xC00; \
-    block;                                                             \
+#define MapGridGetBorderTileAt(x, y) ({                                                            \
+    u16 block;                                                                                     \
+    s32 xprime;                                                                                    \
+    s32 yprime;                                                                                    \
+                                                                                                   \
+    const struct MapLayout *mapLayout = gMapHeader.mapLayout;                                      \
+                                                                                                   \
+    xprime = x - 7;                                                                                \
+    xprime += 8 * mapLayout->borderWidth;                                                          \
+    xprime %= mapLayout->borderWidth;                                                              \
+                                                                                                   \
+    yprime = y - 7;                                                                                \
+    yprime += 8 * mapLayout->borderHeight;                                                         \
+    yprime %= mapLayout->borderHeight;                                                             \
+                                                                                                   \
+    block = mapLayout->border[xprime + yprime * mapLayout->borderWidth] | METATILE_COLLISION_MASK; \
 })
 
 #define AreCoordsWithinMapGridBounds(x, y) (x >= 0 && x < VMap.Xsize && y >= 0 && y < VMap.Ysize)
 
-#define MapGridGetTileAt(x, y) (AreCoordsWithinMapGridBounds(x, y) ? VMap.map[x + VMap.Xsize * y] : MapGridGetBorderTileAt2(x, y))
+#define MapGridGetTileAt(x, y) (AreCoordsWithinMapGridBounds(x, y) ? VMap.map[x + VMap.Xsize * y] : MapGridGetBorderTileAt(x, y))
 
 u8 MapGridGetZCoordAt(s32 x, s32 y)
 {
@@ -446,7 +425,7 @@ u32 MapGridGetMetatileIdAt(s32 x, s32 y)
 
 u32 GetMetatileAttributeFromRawMetatileBehavior(u32 original, u8 bit)
 {
-    if (bit >= 8)
+    if (bit >= METATILE_ATTRIBUTE_COUNT)
         return original;
 
     return (original & sMetatileAttrMasks[bit]) >> sMetatileAttrShifts[bit];
@@ -458,14 +437,14 @@ u32 MapGridGetMetatileAttributeAt(s16 x, s16 y, u8 attr)
     return GetBehaviorByMetatileIdAndMapLayout(gMapHeader.mapLayout, metatileId, attr);
 }
 
-u32 MapGridGetMetatileBehaviorAt(s32 x, s32 y)
+u32 MapGridGetMetatileBehaviorAt(s16 x, s16 y)
 {
-    return MapGridGetMetatileAttributeAt(x, y, 0);
+    return MapGridGetMetatileAttributeAt(x, y, METATILE_ATTRIBUTE_BEHAVIOR);
 }
 
 u8 MapGridGetMetatileLayerTypeAt(s16 x, s16 y)
 {
-    return MapGridGetMetatileAttributeAt(x, y, 6);
+    return MapGridGetMetatileAttributeAt(x, y, METATILE_ATTRIBUTE_LAYER_TYPE);
 }
 
 void MapGridSetMetatileIdAt(s32 x, s32 y, u16 metatile)
@@ -506,7 +485,7 @@ void MapGridSetMetatileImpassabilityAt(s32 x, s32 y, bool32 arg2)
     }
 }
 
-u32 GetBehaviorByMetatileIdAndMapLayout(struct MapLayout *mapLayout, u16 metatile, u8 attr)
+u32 GetBehaviorByMetatileIdAndMapLayout(const struct MapLayout *mapLayout, u16 metatile, u8 attr)
 {
     u32 * attributes;
 
@@ -540,7 +519,7 @@ void save_serialize_map(void)
     {
         for (j = x; j < x + 15; j++)
         {
-            *mapView++ = gBackupMapLayout[width * i + j];
+            *mapView++ = gBackupMapData[width * i + j];
         }
     }
 }
@@ -581,7 +560,7 @@ static void LoadSavedMapView(void)
         {
             for (j = x; j < x + 15; j++)
             {
-                gBackupMapLayout[j + width * i] = *mapView;
+                gBackupMapData[j + width * i] = *mapView;
                 mapView++;
             }
         }
@@ -636,7 +615,7 @@ static void sub_8059250(u8 a1)
             desti = width * (y + y0);
             srci = (y + r8) * 15 + r9;
             src = &mapView[srci + i];
-            dest = &gBackupMapLayout[x0 + desti + j];
+            dest = &gBackupMapData[x0 + desti + j];
             *dest = *src;
             i++;
             j++;
@@ -753,7 +732,7 @@ bool8 CameraMove(s32 x, s32 y)
         old_y = gSaveBlock1Ptr->pos.y;
         connection = sub_8059600(direction, gSaveBlock1Ptr->pos.x, gSaveBlock1Ptr->pos.y);
         sub_80594AC(connection, direction, x, y);
-        sub_8055864(connection->mapGroup, connection->mapNum);
+        LoadMapFromCameraTransition(connection->mapGroup, connection->mapNum);
         gCamera.active = TRUE;
         gCamera.x = old_x - gSaveBlock1Ptr->pos.x;
         gCamera.y = old_y - gSaveBlock1Ptr->pos.y;

@@ -1,6 +1,7 @@
 #include "global.h"
 #include "malloc.h"
 #include "bg.h"
+#include "credits.h"
 #include "palette.h"
 #include "gpu_regs.h"
 #include "task.h"
@@ -15,6 +16,7 @@
 #include "sound.h"
 #include "constants/species.h"
 #include "constants/maps.h"
+#include "constants/field_weather.h"
 
 #if defined(FIRERED)
 #define TITLE_TEXT gString_PokemonFireRed_Staff
@@ -562,94 +564,81 @@ static const struct SpriteTemplate sGroundSpriteTemplate_Static = {
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_Route23[] = {
-    { 0x00fe, MAP_GROUP(ROUTE23), MAP_NUM(ROUTE23) },
-    { 0x000b, 0x006b, 0x0001 },
-    { 0x0000, 0x0001, 0x0500 }, // Scroll down
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(ROUTE23, 11, 107, 1),
+    CREDITSOVWLDSCROLL(0, 1, 0x0500), // Scroll down
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_ViridianCity[] = {
-    { 0x00fe, MAP_GROUP(VIRIDIAN_CITY), MAP_NUM(VIRIDIAN_CITY) },
-    { 0x001e, 0x0022, 0x0001 },
-    { 0x0000, 0xffff, 0x0500 }, // Scroll up
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(VIRIDIAN_CITY, 30, 34, 1),
+    CREDITSOVWLDSCROLL(0, -1, 0x0500), // Scroll up
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_PewterCity[] = {
-    { 0x00fe, MAP_GROUP(PEWTER_CITY), MAP_NUM(PEWTER_CITY) },
-    { 0x0014, 0x001a, 0x0001 },
-    { 0x0000, 0xffff, 0x0500 }, // Scroll up
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(PEWTER_CITY, 20, 26, 1),
+    CREDITSOVWLDSCROLL(0, -1, 0x0500), // Scroll up
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_CeruleanCity[] = {
-    { 0x00fe, MAP_GROUP(CERULEAN_CITY), MAP_NUM(CERULEAN_CITY) },
-    { 0x0008, 0x0006, 0x0001 },
-    { 0x0001, 0x0001, 0x0500 }, // Scroll right and down
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(CERULEAN_CITY, 8, 6, 1),
+    CREDITSOVWLDSCROLL(1, 1, 0x0500), // Scroll right and down
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_Route25[] = {
-    { 0x00fe, MAP_GROUP(ROUTE25), MAP_NUM(ROUTE25) },
-    { 0x0019, 0x0006, 0x0001 },
-    { 0x0001, 0x0000, 0x0500 }, // Scroll right
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(ROUTE25, 25, 6, 1),
+    CREDITSOVWLDSCROLL(1, 0, 0x0500), // Scroll right
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_VermilionCity[] = {
-    { 0x00fe, MAP_GROUP(VERMILION_CITY), MAP_NUM(VERMILION_CITY) },
-    { 0x0009, 0x0007, 0x0001 },
-    { 0x0001, 0x0001, 0x0500 }, // Scroll right and down
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(VERMILION_CITY, 9, 7, 1),
+    CREDITSOVWLDSCROLL(1, 1, 0x0500), // Scroll right and down
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_Route10[] = {
-    { 0x00fe, MAP_GROUP(ROUTE10), MAP_NUM(ROUTE10) },
-    { 0x000b, 0x0044, 0x0001 },
-    { 0x0000, 0x0001, 0x0500 }, // Scroll down
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(ROUTE10, 11, 68, 1),
+    CREDITSOVWLDSCROLL(0, 1, 0x0500), // Scroll down
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_CeladonCity[] = {
-    { 0x00fe, MAP_GROUP(CELADON_CITY), MAP_NUM(CELADON_CITY) },
-    { 0x0030, 0x0010, 0x0001 },
-    { 0xffff, 0x0000, 0x0500 }, // Scroll left
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(CELADON_CITY, 48, 16, 1),
+    CREDITSOVWLDSCROLL(-1, 0, 0x0500), // Scroll left
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_SaffronCity[] = {
-    { 0x00fe, MAP_GROUP(SAFFRON_CITY), MAP_NUM(SAFFRON_CITY) },
-    { 0x0027, 0x0005, 0x0001 },
-    { 0x0000, 0x0001, 0x0500 }, // Scroll down
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(SAFFRON_CITY, 39, 5, 1),
+    CREDITSOVWLDSCROLL(0, 1, 0x0500), // Scroll down
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_Route17[] = {
-    { 0x00fe, MAP_GROUP(ROUTE17), MAP_NUM(ROUTE17) },
-    { 0x0007, 0x002b, 0x0001 },
-    { 0x0000, 0x0001, 0x0500 }, // Scroll down
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(ROUTE17, 7, 43, 1),
+    CREDITSOVWLDSCROLL(0, 1, 0x0500), // Scroll down
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_FuchsiaCity[] = {
-    { 0x00fe, MAP_GROUP(FUCHSIA_CITY), MAP_NUM(FUCHSIA_CITY) },
-    { 0x001c, 0x0005, 0x0001 },
-    { 0x0000, 0x0001, 0x0500 }, // Scroll down
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(FUCHSIA_CITY, 28, 5, 1),
+    CREDITSOVWLDSCROLL(0, 1, 0x0500), // Scroll down
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_CinnabarIsland[] = {
-    { 0x00fe, MAP_GROUP(CINNABAR_ISLAND), MAP_NUM(CINNABAR_ISLAND) },
-    { 0x000d, 0x0011, 0x0001 },
-    { 0x0000, 0xffff, 0x0500 }, // Scroll up
-    { 0x00fd, 0x00fd, 0x00fd }
+    CREDITSOVWLDLOADMAP(CINNABAR_ISLAND, 13, 17, 1),
+    CREDITSOVWLDSCROLL(0, -1, 0x0500), // Scroll up
+    CREDITSOVWLDEND
 };
 
 static const struct CreditsOverworldCmd sOverworldCmd_Route21[] = {
-    { 0x00fe, MAP_GROUP(ROUTE21_NORTH), MAP_NUM(ROUTE21_NORTH) },
-    { 0x0008, 0x0014, 0x0001 },
-    { 0x0000, 0xffff, 0x0500 }, // Scroll up
-    { 0x00fd, 0x00fd, 0x00fd },
+    CREDITSOVWLDLOADMAP(ROUTE21_NORTH, 8, 20, 1),
+    CREDITSOVWLDSCROLL(0, -1, 0x0500), // Scroll up
+    CREDITSOVWLDEND,
 };
 
 static const struct CreditsOverworldCmd *const sOverworldMapScenes[] = {
@@ -749,7 +738,7 @@ static void CB2_Credits(void)
         sCreditsMgr->unk_1D++;
         break;
     case 2:
-        FlagClear(FLAG_SPECIAL_FLAG_0x4000);
+        FlagClear(FLAG_DONT_SHOW_MAP_NAME_POPUP);
         gDisableMapMusicChangeOnMapLoad = MUSIC_DISABLE_OFF;
         Free(sCreditsMgr);
         SoftReset(RESET_ALL);
@@ -796,7 +785,7 @@ static bool32 DoOverworldMapScrollScene(UNUSED u8 unused)
     switch (sCreditsMgr->subseqno)
     {
     case 0:
-        FlagSet(FLAG_SPECIAL_FLAG_0x4000);
+        FlagSet(FLAG_DONT_SHOW_MAP_NAME_POPUP);
         gDisableMapMusicChangeOnMapLoad = MUSIC_DISABLE_KEEP;
         sCreditsMgr->ovwldseqno = 0;
         sCreditsMgr->subseqno++;
@@ -909,7 +898,7 @@ static s32 RollCredits(void)
             case CREDITSSCRCMD_MAPNEXT:
                 sCreditsMgr->mainseqno = CREDITSSCENE_MAPNEXT_DESTROYWINDOW;
                 sCreditsMgr->whichMon = sCreditsScript[sCreditsMgr->scrcmdidx].param;
-                FieldWeather_StartFadingOutCreditsMap(1, 0, 0x3FFFFFFF);
+                FadeSelectedPals(1, 0, 0x3FFFFFFF);
                 break;
             case CREDITSSCRCMD_MAP:
                 sCreditsMgr->mainseqno = CREDITSSCENE_MAP_LOADMAP_CREATESPRITES;
@@ -918,7 +907,7 @@ static s32 RollCredits(void)
             case CREDITSSCRCMD_MON:
                 sCreditsMgr->mainseqno = CREDITSSCENE_MON_DESTROY_ASSETS;
                 sCreditsMgr->whichMon = sCreditsScript[sCreditsMgr->scrcmdidx].param;
-                FadeScreen(1, 0);
+                FadeScreen(FADE_TO_BLACK, 0);
                 break;
             case CREDITSSCRCMD_THEENDGFX:
                 sCreditsMgr->mainseqno = CREDITSSCENE_THEEND_DESTROY_ASSETS;
@@ -1304,7 +1293,7 @@ static s32 RollCredits(void)
                 "\tldr r2, _080F3E0C @ =0x3fffffff\n"
                 "\tmovs r0, 0x1\n"
                 "\tmovs r1, 0\n"
-                "\tbl FieldWeather_StartFadingOutCreditsMap\n"
+                "\tbl FadeSelectedPals\n"
                 "\tb _080F3E94\n"
                 "\t.align 2, 0\n"
                 "_080F3E04: .4byte sCreditsMgr\n"
